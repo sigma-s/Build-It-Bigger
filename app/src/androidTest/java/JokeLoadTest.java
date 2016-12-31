@@ -1,3 +1,4 @@
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import android.util.Log;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.InstrumentationRegistry.getContext;
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertNotNull;
 
 /**
@@ -22,14 +24,15 @@ public class JokeLoadTest {
     @Test
     public void test() {
         Log.v("JokeLoadTest", "Running JokeLoadTest");
-        EndpointsAsyncTask mEndpointsAsyncTask = new EndpointsAsyncTask(getContext(),null);
+        EndpointsAsyncTask mEndpointsAsyncTask = new EndpointsAsyncTask(InstrumentationRegistry.getTargetContext(),null);
         mEndpointsAsyncTask.execute();
         try {
             joke = mEndpointsAsyncTask.get();
             Log.d(LOG_TAG, "Retrieved a joke successfully: " + joke);
+            assertNotNull(joke);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertNotNull(joke);
+
     }
 }
